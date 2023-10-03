@@ -8,10 +8,14 @@ from collections import Counter
 from dataloader import load_HDFS
 
 
-data_dir = "../dataset/HDFS_result/"
-log_name = "HDFS.log_structured.csv"
-(x_train, y_train), (x_test, y_test) = load_HDFS(data_dir+log_name)
-
+data_dir = "./"
+log_name = "hdfsPP.npz"
+# log_name = "HDFS_dict.pickle"
+dataset = np.load(data_dir+log_name, allow_pickle=True)
+x_train = dataset["x_train"][()]
+y_train = dataset["y_train"]
+x_test = dataset["x_test"][()]
+y_test = dataset["y_test"]
 
 train_anomaly = 100 * sum(y_train) / len(y_train)
 test_anomaly = 100 * sum(y_test) / len(y_test)
@@ -23,12 +27,12 @@ print("# test sessions: {} ({:.2f}%)".format(len(x_test), test_anomaly))
 
 def getEventSeqNew(restructured_logs):
     blk_events = {}
-    for blk, eventList in restructured_logs.items():
+    for blk, eventList in enumerate(restructured_logs):
         for event in eventList:
             if blk not in blk_events:
-                blk_events[blk] = [event["EventId"]]
+                blk_events[blk] = [event]
             else:
-                blk_events[blk].append(event["EventId"])
+                blk_events[blk].append(event)
     return blk_events
 
 
