@@ -215,7 +215,8 @@ def bgl_preprocess_data(para, raw_data, event_mapping_data):
         # split into sliding window
         start_time = time_data[0]
         start_index = 0
-        end_index = 0
+        end_index = 0# label_name = "HDFS.anomaly_label.csv"
+
 
         # get the first start, end index, end time
         for cur_time in time_data:
