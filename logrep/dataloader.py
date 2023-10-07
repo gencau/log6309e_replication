@@ -11,18 +11,28 @@ import pandas as pd
 import os
 import numpy as np
 import re
+import pickle
 from sklearn.utils import shuffle
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 from tqdm import tqdm
+from utils import decision, json_pretty_dump
 
 
 def _split_data(x_data, y_data=None, train_ratio=0, split_type='uniform', shuffle_type='random'):
-    if split_type == 'uniform' and y_data is not None:
+    if (split_type == 'uniform' or split_type == 'random') and y_data is not None:
         pos_idx = y_data > 0
         x_pos = x_data[pos_idx]
         y_pos = y_data[pos_idx]
         x_neg = x_data[~pos_idx]
         y_neg = y_data[~pos_idx]
+
+        if (split_type == 'random'):
+            # Shuffle the data first to get truly random sampling
+            np.random.shuffle(x_pos)
+            np.random.shuffle(y_pos)
+            np.random.shuffle(x_neg)
+            np.random.shuffle(y_neg)
+
         train_pos = int(train_ratio * x_pos.shape[0])
         train_neg = int(train_ratio * x_neg.shape[0])
         x_train = np.hstack([x_pos[0:train_pos], x_neg[0:train_neg]])
@@ -39,7 +49,7 @@ def _split_data(x_data, y_data=None, train_ratio=0, split_type='uniform', shuffl
         else:
             y_train = y_data[0:num_train]
             y_test = y_data[num_train:]
-    
+
     if (shuffle_type == 'random'):    
         # Random shuffle
         indexes = shuffle(np.arange(x_train.shape[0]))
@@ -182,14 +192,16 @@ def slice_hdfs(x, y, window_size):
 
 
 def load_BGL(log_file, label_file=None, window='fixed', time_interval=6, train_ratio=0.8):
+
+    print('====== Input data summary ======')
     df_log = pd.read_csv(log_file, engine='c', na_filter=False, memory_map=True)
     df_event_ids = np.array(df_log[['LineId','EventId']])
     df_label_time = np.array(df_log[['Label','Timestamp']])
     
     params = OrderedDict()
     params['save_path'] = "."
-    params['window_size'] = time_interval
-    params['step_size'] = 0
+    params['window_size'] = 6
+    params['step_size'] = 50
 
     event_matrix, labels = bgl_preprocess_data_fixed_windows(params, df_label_time, df_event_ids)
 
@@ -215,6 +227,94 @@ def load_BGL(log_file, label_file=None, window='fixed', time_interval=6, train_r
 
     return (x_train, y_train), (x_test, y_test)
      
+
+def load_BGL_dl(
+    params, data_dir,
+):
+    print("Loading BGL logs from {}.".format(params['log_file']))
+    struct_log = pd.read_csv(params['log_file'], engine="c", na_filter=False, memory_map=True)
+    # struct_log.sort_values(by=["Timestamp"], inplace=True)
+
+    struct_log["Label"] = struct_log["Label"].map(lambda x: x != "-").astype(int).values
+    struct_log["time"] = pd.to_datetime(
+        struct_log["Time"], format="%Y-%m-%d-%H.%M.%S.%f"
+    )
+    struct_log["seconds_since"] = (
+        (struct_log["time"] - struct_log["time"][0]).dt.total_seconds().astype(int)
+    )
+
+    session_dict = OrderedDict()
+    column_idx = {col: idx for idx, col in enumerate(struct_log.columns)}
+    for idx, row in enumerate(struct_log.values):
+        current = row[column_idx["seconds_since"]]
+        if idx == 0:
+            sessid = current
+        elif current - sessid > params['time_range']:
+            sessid = current
+        if sessid not in session_dict:
+            session_dict[sessid] = defaultdict(list)
+        session_dict[sessid]["events"].append(row[column_idx["EventId"]])
+        session_dict[sessid]["label"].append(
+            row[column_idx["Label"]]
+        )  # labeling for each log
+
+    # labeling for each session
+    for k, v in session_dict.items():
+        session_dict[k]["label"] = [int(1 in v["label"])]
+
+    session_idx = list(range(len(session_dict)))
+    # split data
+    if params['random_sessions']:
+        print("Using random partition.")
+        np.random.shuffle(session_idx)
+
+    session_ids = np.array(list(session_dict.keys()))
+
+    if params['train_ratio'] is None:
+        train_ratio = 1 - params['test_ratio']
+    train_lines = int(train_ratio * len(session_idx))
+    test_lines = int(params['test_ratio'] * len(session_idx))
+
+    print("Train lines: {}" .format(train_lines) + "  Test lines: {}".format(test_lines))
+
+    session_idx_train = session_idx[0:train_lines]
+    session_idx_test = session_idx[-test_lines:]
+
+    session_id_train = session_ids[session_idx_train]
+    session_id_test = session_ids[session_idx_test]
+
+    print("Total # sessions: {}".format(len(session_ids)))
+
+#    session_train = {
+#        k: session_dict[k]
+#        for k in session_id_train
+#        if (sum(session_dict[k]["label"]) == 0)
+#        or (sum(session_dict[k]["label"]) > 0 and decision(params['train_anomaly_ratio']))
+#    }
+
+    session_train = {k: session_dict[k] for k in session_id_train}
+    session_test = {k: session_dict[k] for k in session_id_test}
+
+    session_labels_train = [
+        1 if sum(v["label"]) > 0 else 0 for _, v in session_train.items()
+    ]
+    session_labels_test = [
+        1 if sum(v["label"]) > 0 else 0 for _, v in session_test.items()
+    ]
+
+    train_anomaly = 100 * sum(session_labels_train) / len(session_labels_train)
+    test_anomaly = 100 * sum(session_labels_test) / len(session_labels_test)
+
+    print("# train sessions: {} ({:.2f}%)".format(len(session_train), train_anomaly))
+    print("# test sessions: {} ({:.2f}%)".format(len(session_test), test_anomaly))
+
+    with open(os.path.join(data_dir, "session_train.pkl"), "wb") as fw:
+        pickle.dump(session_train, fw)
+    with open(os.path.join(data_dir, "session_test.pkl"), "wb") as fw:
+        pickle.dump(session_test, fw)
+    json_pretty_dump(params, os.path.join(data_dir, "data_desc.json"))
+    print("Saved to {}".format(data_dir))
+    return (session_id_train, session_labels_train), (session_id_test, session_labels_test)
 
 
 def bgl_preprocess_data_fixed_windows(para, raw_data, event_mapping_data):

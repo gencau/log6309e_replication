@@ -1,0 +1,99 @@
+************************************************
+HDFS Traditional methods (from paper)
+
+WITH SEQUENTIAL SPLIT
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 0.998, F1-measure: 0.999, roc-auc: 0.999
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 0.999, F1-measure: 0.999, roc-auc: 0.999
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 0.998, F1-measure: 0.999, roc-auc: 0.999
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 0.998, F1-measure: 0.999, roc-auc: 0.999
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 0.999, F1-measure: 0.999, roc-auc: 0.999
+
+average:  1.0 0.9984958366908406 0.9992473117968762 0.9992479183454204
+
+WITH RANDOM SPLIT
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.997, recall: 0.999, F1-measure: 0.998, roc-auc: 0.999
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.997, recall: 0.999, F1-measure: 0.998, roc-auc: 0.999
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.997, recall: 0.999, F1-measure: 0.998, roc-auc: 1.000
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.997, recall: 0.999, F1-measure: 0.998, roc-auc: 0.999
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.997, recall: 0.999, F1-measure: 0.998, roc-auc: 0.999
+
+average:  0.9972335295518672 0.9989311163895487 0.9980815949009589 0.9994237589149162
