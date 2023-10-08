@@ -15,7 +15,7 @@ import pickle
 from sklearn.utils import shuffle
 from collections import OrderedDict, defaultdict
 from tqdm import tqdm
-from utils import decision, json_pretty_dump
+from logrep.utils import json_pretty_dump
 
 
 def _split_data(x_data, y_data=None, train_ratio=0, split_type='uniform', shuffle_type='random'):

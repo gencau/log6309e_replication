@@ -97,3 +97,38 @@ Test validation:
 Precision: 0.997, recall: 0.999, F1-measure: 0.998, roc-auc: 0.999
 
 average:  0.9972335295518672 0.9989311163895487 0.9980815949009589 0.9994237589149162
+
+################ PCA Analysis ####################
+(venv) C:\Users\panth\Courses\LOG6309E\Assigment 2\log6309e_replication\demo>python PCA_demo.py
+====== Transformed train data summary ======
+Train data shape: 402542-by-46
+
+====== Transformed test data summary ======
+Test data shape: 172519-by-46
+
+====== Model summary ======
+n_components: 5
+Project matrix shape: 46-by-46
+SPE threshold: 3.8346666448327085
+
+0.95
+[0.56800649 0.19602166 0.11201831 0.05891138 0.01954319]
+[[ 1.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
+   0.00000000e+00]
+ [-0.00000000e+00  1.00000000e+00 -7.08669234e-14 -9.70057368e-15
+  -3.29597460e-17]
+ [-0.00000000e+00  7.08530457e-14  1.00000000e+00 -1.30406970e-13
+   7.42407438e-17]
+ [-0.00000000e+00  9.75608483e-15  1.29733897e-13  1.00000000e+00
+  -3.96926415e-16]
+ [ 0.00000000e+00  3.59955121e-17 -1.51070020e-16  4.35117437e-16
+   1.00000000e+00]]
+5
+====== Model summary ======
+Train validation:
+====== Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999
+
+Test validation:
+====== Evaluation summary ======
+Precision: 1.000, recall: 0.999, F1-measure: 0.999
