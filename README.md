@@ -4,7 +4,7 @@ Requires the Drain parser, available here: https://github.com/logpai/logparser/t
 * Prior to running the scripts, install the logparser package from  https://github.com/logpai/logparser: python setup.py install
 * Requirements.txt contains required packages: pip install -r requirements.txt
 
-  # Extention of paper
+  # Extension of paper
   * Using statistical ranking to rank models based on performance. Resampling is done through time-based cross-validation
   * Gini importance evaluation for Decision Tree, chosen for best interpretability
   * Correlation analysis done with PCA analysis and redundancy analysis (VIF). Performance is compared with original models
