@@ -1,7 +1,7 @@
 ************************************************
 HDFS Traditional methods (from paper)
 
-WITH SEQUENTIAL SPLIT
+WITH SEQUENTIAL SPLIT (default)
 ====== Model summary ======
 Train validation:
 ====== Decision Tree: Evaluation summary ======
@@ -273,3 +273,51 @@ VIF results
 4  1.001559       X4
 5  1.030447    Label
 ## Result shows very low correlation between variables
+
+
+############## BGL traditional methods ######################
+Decision Tree
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 1.000, F1-measure: 1.000, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.917, recall: 0.957, F1-measure: 0.936, roc-auc: 0.938
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 1.000, F1-measure: 1.000, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.914, recall: 0.928, F1-measure: 0.921, roc-auc: 0.923
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 1.000, F1-measure: 1.000, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.942, recall: 0.942, F1-measure: 0.942, roc-auc: 0.944
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 1.000, F1-measure: 1.000, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.942, recall: 0.942, F1-measure: 0.942, roc-auc: 0.944
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 1.000, F1-measure: 1.000, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.929, recall: 0.942, F1-measure: 0.935, roc-auc: 0.937

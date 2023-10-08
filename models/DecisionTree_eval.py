@@ -17,7 +17,7 @@ def metrics(y_pred, y_true):
 
 
 
-seq_level_data = np.load('../logrep/MCV_randomhdfsPP-random.npz.npz', allow_pickle=True)
+seq_level_data = np.load('../logrep/MCV_bglPP-sequential.npz.npz', allow_pickle=True)
 
 x_train = seq_level_data["x_train"]
 y_train = seq_level_data["y_train"]
@@ -94,6 +94,7 @@ for i in range(5):
     f1_l.append(f1)
     roc_l.append(roc)
 
+## This is not required for BGL
     if (i == 4): # only print this once
         feat_importance = model.classifier.tree_.compute_feature_importances(normalize=False)
         print("feat importance = " + str(feat_importance))
@@ -109,8 +110,8 @@ for i in range(5):
 print('average: ', sum(prec_l) / len(prec_l), sum(recall_l) / len(recall_l), sum(f1_l) / len(f1_l), sum(roc_l) / len(roc_l))
 
 ## Perform time series split and cross-validation for statistical ranking
+## NOT required for BGL
 from sklearn.model_selection import TimeSeriesSplit
-from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import cross_val_score
 
 #Cross Validation Definition

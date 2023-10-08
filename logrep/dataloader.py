@@ -15,7 +15,7 @@ import pickle
 from sklearn.utils import shuffle
 from collections import OrderedDict, defaultdict
 from tqdm import tqdm
-from logrep.utils import json_pretty_dump
+from utils import json_pretty_dump
 
 
 def _split_data(x_data, y_data=None, train_ratio=0, split_type='uniform', shuffle_type='random'):
@@ -308,13 +308,29 @@ def load_BGL_dl(
     print("# train sessions: {} ({:.2f}%)".format(len(session_train), train_anomaly))
     print("# test sessions: {} ({:.2f}%)".format(len(session_test), test_anomaly))
 
-    with open(os.path.join(data_dir, "session_train.pkl"), "wb") as fw:
-        pickle.dump(session_train, fw)
-    with open(os.path.join(data_dir, "session_test.pkl"), "wb") as fw:
-        pickle.dump(session_test, fw)
-    json_pretty_dump(params, os.path.join(data_dir, "data_desc.json"))
-    print("Saved to {}".format(data_dir))
-    return (session_id_train, session_labels_train), (session_id_test, session_labels_test)
+    df_event_train = pd.DataFrame(columns=['SessionId', 'Events', 'Label'])
+
+    # Put back in dataframe to return proper columns
+    for item in session_train:
+        df_event_train.loc[-1] = [item, session_train[item]['events'], session_train[item]['label'][0]]  # adding a row
+        df_event_train.index = df_event_train.index + 1  # shifting index
+        df_event_train = df_event_train.sort_index()  # sorting by index
+
+    x_train = df_event_train['Events'].values
+    y_train = df_event_train['Label']
+
+    df_event_test = pd.DataFrame(columns=['SessionId','Events','Label'])
+
+    for item in session_test:
+        df_event_test.loc[-1] = [item, session_test[item]['events'], session_test[item]['label'][0]]  # adding a row
+        df_event_test.index = df_event_test.index + 1  # shifting index
+        df_event_test = df_event_test.sort_index()  # sorting by index 
+
+    x_test = df_event_test['Events'].values
+    y_test = df_event_test['Label']
+
+    # Return df with session id, session sequence, and a separate one with session id, label
+    return (x_train, x_test), (y_train, y_test)
 
 
 def bgl_preprocess_data_fixed_windows(para, raw_data, event_mapping_data):
