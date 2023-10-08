@@ -47,11 +47,12 @@ class PCA(object):
         self.n_components = n_components
         self.threshold = threshold
         self.c_alpha = c_alpha
+        self.component_count = 0
 
 
     def fit(self, X):
         """
-        Auguments
+        Arguments
         ---------
             X: ndarray, the event count matrix of shape num_instances-by-num_events
         """
@@ -74,6 +75,7 @@ class PCA(object):
         I = np.identity(num_events, int)
         self.components = P
         self.proj_C = I - np.dot(P, P.T)
+        self.component_count = n_components
         print('n_components: {}'.format(n_components))
         print('Project matrix shape: {}-by-{}'.format(self.proj_C.shape[0], self.proj_C.shape[1]))
 

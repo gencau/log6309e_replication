@@ -5,12 +5,12 @@ import sys
 sys.path.append('../')
 from models import PCA as PCA_
 from sklearn.decomposition import PCA
-from logrep import dataloader, preprocessing
+from logrep import preprocessing
 from models import DecisionTree
 import pandas as pd
 import numpy as np
 
-log_name = "../logrep/hdfsPP-sequential.npz"
+log_name = "../logrep/MCV_hdfsPP-sequential.npz.npz"
 dataset = np.load(log_name, allow_pickle=True)
 x_train = dataset["x_train"][()]
 y_train = dataset["y_train"]
@@ -19,17 +19,18 @@ y_test = dataset["y_test"]
 
 if __name__ == '__main__':
     
-    feature_extractor = preprocessing.FeatureExtractor()
-    x_train = feature_extractor.fit_transform(x_train, term_weighting='tf-idf', 
-                                              normalization='zero-mean')
-    x_test = feature_extractor.transform(x_test)
-
-    model = PCA_.PCA()
+    ## Tf-idf term weighting, uncomment this and use hdfsPP-sequential.npz to test
+    #feature_extractor = preprocessing.FeatureExtractor()
+    #x_train = feature_extractor.fit_transform(x_train, term_weighting='tf-idf', 
+    #                                          normalization='zero-mean')
+    #x_test = feature_extractor.transform(x_test)
+    
+    # Ask for components that make up 99% of the variance of the model
+    model = PCA_.PCA(n_components=0.99)
     model.fit(x_train)
     print(model.n_components)
 
-    # I chose 5 after running the PCA demo with PCA from the models directory (above this block) 
-    model = PCA(n_components=5)
+    model = PCA(n_components=model.component_count)
     X_train = model.fit_transform(x_train)
     X_test = model.transform(x_test)
  
@@ -49,3 +50,6 @@ if __name__ == '__main__':
 
     print('Test validation:')
     precision, recall, f1= model.evaluate(X_test, y_test)
+
+    np.savez("../logrep/hdfs-PCA.npz", x_train=X_train,
+         y_train=y_train, x_test=X_test, y_test=y_test)
