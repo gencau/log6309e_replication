@@ -49,6 +49,10 @@ Precision: 1.000, recall: 0.999, F1-measure: 0.999, roc-auc: 0.999
 
 average:  1.0 0.9984958366908406 0.9992473117968762 0.9992479183454204
 
+--- Cross validation results for statistical ranking ---
+[0.99081789 0.9918927  0.99483464 0.99912287 0.98964428 0.99220807
+ 0.99576699 0.99148689 0.99819686 0.99224572]
+
 WITH RANDOM SPLIT
 
 ====== Model summary ======
@@ -97,6 +101,10 @@ Test validation:
 Precision: 0.997, recall: 0.999, F1-measure: 0.998, roc-auc: 0.999
 
 average:  0.9972335295518672 0.9989311163895487 0.9980815949009589 0.9994237589149162
+
+--- Cross validation results for statistical ranking ---
+[0.98269456 0.99719068 0.99279351 0.99521239 0.99590751 0.99901585
+ 0.99119165 0.99237418 0.99394322 0.99721275]
 
 ################ PCA Analysis with term_weighting=tdf-if and 95% variance ####################
 (venv) C:\Users\panth\Courses\LOG6309E\Assigment 2\log6309e_replication\demo>python PCA_demo.py
@@ -179,6 +187,9 @@ Test validation:
 ====== Evaluation summary ======
 Precision: 0.979, recall: 0.999, F1-measure: 0.989
 
+-- Time based cross validation for statistical ranking --
+[0.97829684 0.98648784 0.99053017 0.99035155 0.98619238 0.98701346
+ 0.99068738 0.98723034 0.99459057 0.98879937]
 
 #################### PCA Analysis with TF-IDF term weighing and 99% variance ################
 (venv) C:\Users\panth\Courses\LOG6309E\Assigment 2\log6309e_replication\demo>python PCA_demo.py
@@ -261,4 +272,4 @@ VIF results
 3  1.026968       X3
 4  1.001559       X4
 5  1.030447    Label
-## Result show very low correlation between variables
+## Result shows very low correlation between variables

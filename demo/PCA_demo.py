@@ -53,3 +53,14 @@ if __name__ == '__main__':
 
     np.savez("../logrep/hdfs-PCA.npz", x_train=X_train,
          y_train=y_train, x_test=X_test, y_test=y_test)
+
+    ## Perform time series split and cross-validation for statistical ranking
+    from sklearn.model_selection import TimeSeriesSplit
+    from sklearn.model_selection import cross_val_score
+
+    #Cross Validation Definition
+    time_split = TimeSeriesSplit(n_splits=10)
+
+    #performance metrics
+    r2 = cross_val_score(model.classifier, X_train, y_train, cv=time_split, scoring = 'r2', n_jobs =1)
+    print(r2)
