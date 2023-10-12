@@ -2,4 +2,10 @@
 
 Requires the Drain parser, available here: https://github.com/logpai/logparser/tree/main/logparser/Drain
 * Prior to running the scripts, install the logparser package from  https://github.com/logpai/logparser: python setup.py install
-* HDFS_dict.pickle is a dictionary containing x_train, x_test, y_train, y_test, respectively.
+* Requirements.txt contains required packages: pip install -r requirements.txt
+
+  # Extension of paper
+  * Using statistical ranking to rank models based on performance. Resampling is done through time-based cross-validation
+  * Gini importance evaluation for Decision Tree, chosen for best interpretability
+  * Correlation analysis done with PCA analysis and redundancy analysis (VIF). Performance is compared with original models
+  * Perform random splitting and compare the results with the original, time-based split.

@@ -1,0 +1,325 @@
+************************************************
+HDFS Traditional methods (from paper)
+
+WITH SEQUENTIAL SPLIT (default)
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 0.998, F1-measure: 0.999, roc-auc: 0.999
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 0.999, F1-measure: 0.999, roc-auc: 0.999
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 0.998, F1-measure: 0.999, roc-auc: 0.999
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 0.998, F1-measure: 0.999, roc-auc: 0.999
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 0.999, F1-measure: 0.999, roc-auc: 0.999
+
+average:  1.0 0.9984958366908406 0.9992473117968762 0.9992479183454204
+
+--- Cross validation results for statistical ranking ---
+[0.99081789 0.9918927  0.99483464 0.99912287 0.98964428 0.99220807
+ 0.99576699 0.99148689 0.99819686 0.99224572]
+
+WITH RANDOM SPLIT
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.997, recall: 0.999, F1-measure: 0.998, roc-auc: 0.999
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.997, recall: 0.999, F1-measure: 0.998, roc-auc: 0.999
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.997, recall: 0.999, F1-measure: 0.998, roc-auc: 1.000
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.997, recall: 0.999, F1-measure: 0.998, roc-auc: 0.999
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.997, recall: 0.999, F1-measure: 0.998, roc-auc: 0.999
+
+average:  0.9972335295518672 0.9989311163895487 0.9980815949009589 0.9994237589149162
+
+--- Cross validation results for statistical ranking ---
+[0.98269456 0.99719068 0.99279351 0.99521239 0.99590751 0.99901585
+ 0.99119165 0.99237418 0.99394322 0.99721275]
+
+################ PCA Analysis with term_weighting=tdf-if and 95% variance ####################
+(venv) C:\Users\panth\Courses\LOG6309E\Assigment 2\log6309e_replication\demo>python PCA_demo.py
+====== Transformed train data summary ======
+Train data shape: 402542-by-46
+
+====== Transformed test data summary ======
+Test data shape: 172519-by-46
+
+====== Model summary ======
+n_components: 5
+Project matrix shape: 46-by-46
+SPE threshold: 3.8346666448327085
+
+0.95
+[0.56800649 0.19602166 0.11201831 0.05891138 0.01954319]
+[[ 1.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
+   0.00000000e+00]
+ [-0.00000000e+00  1.00000000e+00 -7.08669234e-14 -9.70057368e-15
+  -3.29597460e-17]
+ [-0.00000000e+00  7.08530457e-14  1.00000000e+00 -1.30406970e-13
+   7.42407438e-17]
+ [-0.00000000e+00  9.75608483e-15  1.29733897e-13  1.00000000e+00
+  -3.96926415e-16]
+ [ 0.00000000e+00  3.59955121e-17 -1.51070020e-16  4.35117437e-16
+   1.00000000e+00]]
+5
+====== Model summary ======
+Train validation:
+====== Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999
+
+Test validation:
+====== Evaluation summary ======
+Precision: 1.000, recall: 0.999, F1-measure: 0.999
+
+#################### PCA Analysis with Message Count Vector and 95% variance ################
+(venv) C:\Users\panth\Courses\LOG6309E\Assigment 2\log6309e_replication\demo>python PCA_demo.py
+====== Model summary ======
+n_components: 3
+Project matrix shape: 46-by-46
+SPE threshold: 15.36268998269029
+
+0.95
+[0.62451631 0.19457586 0.11259333 0.02925361]
+[[ 1.00000000e+00 -1.63049247e-13 -4.14318320e-15  5.05982789e-15]
+ [ 1.63049247e-13  1.00000000e+00 -3.96939426e-13  4.03913014e-14]
+ [ 4.14318320e-15  3.96939426e-13  1.00000000e+00 -8.61979758e-14]]
+3
+====== Model summary ======
+Train validation:
+====== Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999
+
+Test validation:
+====== Evaluation summary ======
+Precision: 0.979, recall: 0.999, F1-measure: 0.989
+
+
+#################### PCA Analysis with Message Count Vector and 99% variance ################
+(venv) C:\Users\panth\Courses\LOG6309E\Assigment 2\log6309e_replication\demo>python PCA_demo.py
+====== Model summary ======
+n_components: 4
+Project matrix shape: 46-by-46
+SPE threshold: 6.199516492678868
+
+0.99
+[0.62451631 0.19457586 0.11259333 0.02925361]
+[[ 1.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [ 0.00000000e+00  1.00000000e+00  1.66533454e-15  3.33066907e-16]
+ [-0.00000000e+00 -1.49186219e-15  1.00000000e+00 -1.11022302e-16]
+ [-0.00000000e+00  0.00000000e+00  2.42861287e-17  1.00000000e+00]]
+4
+====== Model summary ======
+Train validation:
+====== Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999
+
+Test validation:
+====== Evaluation summary ======
+Precision: 0.979, recall: 0.999, F1-measure: 0.989
+
+-- Time based cross validation for statistical ranking --
+[0.97829684 0.98648784 0.99053017 0.99035155 0.98619238 0.98701346
+ 0.99068738 0.98723034 0.99459057 0.98879937]
+
+#################### PCA Analysis with TF-IDF term weighing and 99% variance ################
+(venv) C:\Users\panth\Courses\LOG6309E\Assigment 2\log6309e_replication\demo>python PCA_demo.py
+====== Transformed train data summary ======
+Train data shape: 402542-by-46
+
+====== Transformed test data summary ======
+Test data shape: 172519-by-46
+
+====== Model summary ======
+n_components: 10
+Project matrix shape: 46-by-46
+SPE threshold: 0.01568893214077204
+
+0.99
+[0.56800649 0.19602166 0.11201831 0.05891138 0.01954319 0.01248992
+ 0.00869329 0.00669686 0.00607106 0.00395401]
+[[ 1.00000000e+00  0.00000000e+00  0.00000000e+00 -0.00000000e+00
+  -0.00000000e+00 -0.00000000e+00 -0.00000000e+00 -0.00000000e+00
+  -0.00000000e+00 -0.00000000e+00]
+ [-0.00000000e+00  1.00000000e+00 -1.98840944e-13 -1.34753320e-14
+  -3.07913417e-17 -9.35124374e-19  4.64038530e-17 -4.33680869e-17
+   6.93889390e-18  5.55111512e-17]
+ [-0.00000000e+00  1.98785433e-13  1.00000000e+00  3.21612962e-13
+   1.00567883e-15  2.20886923e-16 -1.57480366e-17 -1.35633692e-16
+   2.05727362e-16  8.60856525e-17]
+ [-0.00000000e+00  1.34892097e-14 -3.22091962e-13  1.00000000e+00
+  -1.40843283e-15  4.58562356e-16 -6.80269101e-17 -1.23395760e-16
+   1.74936021e-16  5.81064602e-17]
+ [ 0.00000000e+00  2.94902991e-17 -1.12064492e-15  1.15071798e-15
+   1.00000000e+00 -5.59397258e-13 -4.70844922e-14 -1.44024908e-15
+  -3.10112315e-15 -2.48952597e-15]
+ [ 0.00000000e+00  2.44623115e-18 -2.03476796e-16 -4.00101624e-16
+   5.59495378e-13  1.00000000e+00 -1.08627230e-13 -3.26320375e-14
+   3.05631381e-15 -9.71548516e-15]
+ [ 0.00000000e+00 -4.81385765e-17 -2.96664819e-17 -2.09251019e-17
+   4.70160753e-14  1.08662700e-13  1.00000000e+00  1.04770341e-12
+  -4.54964408e-13  2.88848886e-13]
+ [-0.00000000e+00  4.16333634e-17  7.63278329e-17  9.11814027e-17
+   1.58623606e-15  3.24892166e-14 -1.04773551e-12  1.00000000e+00
+  -3.16165226e-13  7.60398731e-14]
+ [-0.00000000e+00 -3.46944695e-18  1.90277481e-17  2.28685343e-16
+   2.57587463e-15 -3.02044236e-15  4.55045557e-13  3.15761706e-13
+   1.00000000e+00 -1.67108675e-13]
+ [ 0.00000000e+00 -5.29090660e-17 -9.34446747e-17 -5.04154010e-18
+   2.46897272e-15  9.79627554e-15 -2.89355797e-13 -7.59827949e-14
+   1.67197775e-13  1.00000000e+00]]
+10
+====== Model summary ======
+Train validation:
+====== Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999
+
+Test validation:
+====== Evaluation summary ======
+Precision: 1.000, recall: 0.999, F1-measure: 0.999
+
+###################### VIF Redundancy Analysis, after PCA with 4 components ###############
+Source: https://www.statology.org/how-to-calculate-vif-in-python/
+About add_constant: https://stackoverflow.com/questions/42658379/variance-inflation-factor-in-python
+
+(venv) C:\Users\panth\Courses\LOG6309E\Assigment 2\log6309e_replication\models>python corr_analysis.py
+(402542, 4)
+         X1        X2        X3        X4  Label
+0  0.395735 -1.186318 -0.239541  0.529990      0
+1 -1.652417  0.969568  3.522488  0.099597      0
+2 -1.271976  0.393719 -0.576333 -0.238992      0
+3 -1.271976  0.393719 -0.576333 -0.238992      0
+4 -1.652417  0.969568  3.522488  0.099597      0
+5  3.161102  0.053578 -0.110133 -0.352551      0
+6 -1.271976  0.393719 -0.576333 -0.238992      0
+7 -1.652417  0.969568  3.522488  0.099597      0
+8 -1.165978  0.318527 -1.463960  0.029576      1
+9  0.431317 -1.447768 -0.294125  2.476057      0
+VIF results
+        VIF variable
+0  1.034703    const
+1  1.000505       X1
+2  1.001414       X2
+3  1.026968       X3
+4  1.001559       X4
+5  1.030447    Label
+## Result shows very low correlation between variables
+
+
+############## BGL traditional methods ######################
+Decision Tree
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 1.000, F1-measure: 1.000, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.917, recall: 0.957, F1-measure: 0.936, roc-auc: 0.938
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 1.000, F1-measure: 1.000, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.914, recall: 0.928, F1-measure: 0.921, roc-auc: 0.923
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 1.000, F1-measure: 1.000, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.942, recall: 0.942, F1-measure: 0.942, roc-auc: 0.944
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 1.000, F1-measure: 1.000, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.942, recall: 0.942, F1-measure: 0.942, roc-auc: 0.944
+
+====== Model summary ======
+Train validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 1.000, recall: 1.000, F1-measure: 1.000, roc-auc: 1.000
+
+Test validation:
+====== Decision Tree: Evaluation summary ======
+Precision: 0.929, recall: 0.942, F1-measure: 0.935, roc-auc: 0.937
+
+average:  0.9358908780903666 0.9304347826086955 0.9331429175922986 0.935487661574618

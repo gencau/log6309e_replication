@@ -9,8 +9,7 @@ from dataloader import load_HDFS
 
 
 data_dir = "./"
-log_name = "hdfsPP.npz"
-# log_name = "HDFS_dict.pickle"
+log_name = "bglPP-sequential.npz"
 dataset = np.load(data_dir+log_name, allow_pickle=True)
 x_train = dataset["x_train"][()]
 y_train = dataset["y_train"]
