@@ -1,21 +1,24 @@
 # Multi-layer perception for log anomaly detection
-
-import numpy as np
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import matplotlib.pyplot as plt
-from torch.autograd import Variable
 from sklearn.metrics import precision_recall_fscore_support
+from torch.autograd import Variable
+import matplotlib.pyplot as plt
+import torch.nn.functional as F
+import torch.nn as nn
+import torch
+import numpy as np
+print("Loading packages...")
+print(torch.__version__)
+print("done")
+# seq_level_data = np.load(
+#     '../logrep/BGL_MCV_agg.npz', allow_pickle=True)
 
 seq_level_data = np.load(
-    './data/BGL/agg/BGL_fasttext_template_tfidf_50d_agg.npz', allow_pickle=True)
+    '../logrep/MCV_bglPP-sequential.npz.npz', allow_pickle=True)
 
 x_train = seq_level_data["x_train"]
 y_train = seq_level_data["y_train"]
 x_test = seq_level_data["x_test"]
 y_test = seq_level_data["y_test"]
-
 
 # balance pos/neg samples
 x_train = np.array(x_train, dtype=np.float64)
@@ -28,7 +31,11 @@ print('ratio:', x_train.shape[0]/sum(pos))
 ratio = x_train.shape[0]/sum(pos)
 
 index = np.argwhere(pos == True)
-fea_dim = x_train.shape[1]
+try:
+    fea_dim = x_train.shape[1]
+except:
+    fea_dim = 1
+
 pos_items = x_train[index, :].reshape(-1, fea_dim)
 pos_rep = np.repeat(pos_items, ratio-1, axis=0)
 
