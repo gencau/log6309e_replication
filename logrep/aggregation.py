@@ -1,8 +1,9 @@
 # aggregate log event-level representation to seqence-level
 
-
+import numpy as np
+from tqdm import tqdm
 evt_level_rep = np.load(
-    './dataset/BGL/BGL_full.log_structured_0.8_rad_6.0.npz', allow_pickle=True)
+    './MCV_bglPP-sequential.npz.npz', allow_pickle=True)
 
 x_train = evt_level_rep["x_train"][()]
 y_train = evt_level_rep["y_train"]
@@ -25,5 +26,5 @@ for i in tqdm(range(x_test.shape[0])):
 x_test_agg = np.array(x_test_agg)
 x_test_agg.shape
 
-np.savez('./dataset/BGL/agg/BGL_word2vec_template_TFIDF_300d_agg.npz',
+np.savez('./BGL_MCV_agg.npz',
          x_train=x_train_agg, y_train=y_train, x_test=x_test_agg, y_test=y_test)
