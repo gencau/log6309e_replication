@@ -15,7 +15,7 @@ import pickle
 from sklearn.utils import shuffle
 from collections import OrderedDict, defaultdict
 from tqdm import tqdm
-from utils import json_pretty_dump
+from utils import decision, json_pretty_dump
 
 
 def _split_data(x_data, y_data=None, train_ratio=0, split_type='uniform', shuffle_type='random'):
@@ -203,14 +203,12 @@ def load_BGL(log_file, label_file=None, window='fixed', time_interval=6, train_r
     params['window_size'] = 6
     params['step_size'] = 50
 
-    event_matrix, labels = bgl_preprocess_data_fixed_windows(params, df_label_time, df_event_ids)
+    event_matrix, labels = bgl_preprocess_data(params, df_label_time, df_event_ids)
 
     # Split the data
     (x_train, y_train), (x_test, y_test) = _split_data(event_matrix, labels,
-                                                       train_ratio=train_ratio, split_type='sequential',
-                                                       shuffle_type='None') 
+                                                       train_ratio=train_ratio, split_type='sequential') 
     
-    ## TODO: Shuffle ##
     num_train = x_train.shape[0]
     num_test = x_test.shape[0]
     num_total = num_train + num_test
@@ -285,12 +283,12 @@ def load_BGL_dl(
 
     print("Total # sessions: {}".format(len(session_ids)))
 
-#    session_train = {
-#        k: session_dict[k]
-#        for k in session_id_train
-#        if (sum(session_dict[k]["label"]) == 0)
-#        or (sum(session_dict[k]["label"]) > 0 and decision(params['train_anomaly_ratio']))
-#    }
+    session_train = {
+        k: session_dict[k]
+        for k in session_id_train
+        if (sum(session_dict[k]["label"]) == 0)
+        or (sum(session_dict[k]["label"]) > 0 and decision(params['train_anomaly_ratio']))
+    }
 
     session_train = {k: session_dict[k] for k in session_id_train}
     session_test = {k: session_dict[k] for k in session_id_test}
@@ -314,7 +312,8 @@ def load_BGL_dl(
     for item in session_train:
         df_event_train.loc[-1] = [item, session_train[item]['events'], session_train[item]['label'][0]]  # adding a row
         df_event_train.index = df_event_train.index + 1  # shifting index
-        df_event_train = df_event_train.sort_index()  # sorting by index
+        
+    df_event_train = df_event_train.sort_index()  # sorting by index
 
     x_train = df_event_train['Events'].values
     y_train = df_event_train['Label']
@@ -324,12 +323,13 @@ def load_BGL_dl(
     for item in session_test:
         df_event_test.loc[-1] = [item, session_test[item]['events'], session_test[item]['label'][0]]  # adding a row
         df_event_test.index = df_event_test.index + 1  # shifting index
-        df_event_test = df_event_test.sort_index()  # sorting by index 
+
+    df_event_test = df_event_test.sort_index()  # sorting by index 
 
     x_test = df_event_test['Events'].values
     y_test = df_event_test['Label']
 
-    # Return df with session id, session sequence, and a separate one with session id, label
+    # Return df with session sequence list, and a separate one with session id, label
     return (x_train, x_test), (y_train, y_test)
 
 
