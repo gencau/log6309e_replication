@@ -13,7 +13,14 @@ Reference:
 
 import numpy as np
 from sklearn import tree
-from utils import metrics
+
+from sklearn.metrics import precision_recall_fscore_support
+from sklearn.metrics import roc_auc_score
+
+def metrics(y_pred, y_true):
+    precision, recall, f1, _ = precision_recall_fscore_support(y_true, y_pred, average='binary')
+    roc_score = roc_auc_score(y_true, y_pred)
+    return precision, recall, f1, roc_score
 
 class DecisionTree(object):
 
@@ -73,6 +80,6 @@ class DecisionTree(object):
     def evaluate(self, X, y_true):
         print('====== Evaluation summary ======')
         y_pred = self.predict(X)
-        precision, recall, f1 = metrics(y_pred, y_true)
-        print('Precision: {:.3f}, recall: {:.3f}, F1-measure: {:.3f}\n'.format(precision, recall, f1))
-        return precision, recall, f1
+        precision, recall, f1, roc = metrics(y_pred, y_true)
+        print('Precision: {:.3f}, recall: {:.3f}, F1-measure: {:.3f}, AUC: {:.3f}\n'.format(precision, recall, f1, roc))
+        return precision, recall, f1, roc
