@@ -79,7 +79,7 @@ class MLP_wrapper():
         self.y_test_onehot = torch.zeros(
             y_test_tensor.shape[0], 2).scatter_(1, y_test_tensor, 1)
 
-    def train(self):
+    def fit(self):
         print("Training model "+self.name+" ...")
         net = Net(self.fea_dim, 200, 2)
         print(net)
@@ -110,6 +110,29 @@ class MLP_wrapper():
         return [self.precision, self.recall, self.f1, self.acc]
 
 
-model = MLP_wrapper("m1")
-model.load_data("../logrep/MCV_bglPP-sequential.npz.npz")
-model.train()
+# model = MLP_wrapper("m1")
+# model.load_data("../logrep/MCV_bglPP-sequential.npz.npz")
+# model.train()
+
+data = "../logrep/MCV_bglPP-sequential.npz.npz"
+prec_l = []
+recall_l = []
+f1_l = []
+for i in range(10):
+    model = MLP_wrapper("m"+str(i))
+    model.load_data(data)
+    model.fit()
+
+    precision, recall, f1, acc = model.get_metrics()
+    prec_l.append(precision)
+    recall_l.append(recall)
+    f1_l.append(f1)
+
+
+result_string = f'---------------------------------------\nRUN\nDATA: {data}\n---------------------------------------\nAverage Precision: {sum(prec_l) / len(prec_l)}\nAverage Recall: {sum(recall_l)/len(recall_l)}\nAverage F1: {sum(f1_l) / len(f1_l)}'
+
+# Save the result in a file
+with open('./result_MLP.txt', 'w') as file:
+    file.write(result_string)
+
+print(result_string)
