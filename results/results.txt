@@ -163,6 +163,8 @@ Test validation:
 ====== Evaluation summary ======
 Precision: 0.979, recall: 0.999, F1-measure: 0.989
 
+[0.9774621  0.98378541 0.99225196 0.99210581 0.98791833 0.98614769
+ 0.99068738 0.98808165 0.99459057 0.98879937]
 
 #################### PCA Analysis with Message Count Vector and 99% variance ################
 (venv) C:\Users\panth\Courses\LOG6309E\Assigment 2\log6309e_replication\demo>python PCA_demo.py
@@ -274,6 +276,29 @@ VIF results
 5  1.030447    Label
 ## Result shows very low correlation between variables
 
+#################### VIF Redundancy Analysis, after PLS with 5 components #####################
+(venv) C:\Users\panth\Courses\LOG6309E\Assigment 2\log6309e_replication\models>python redundancy_analysis.py
+(402542, 5)
+         X1        X2        X3        X4        X5  Label
+0  0.354748  0.124258  0.111491  0.541439  0.450350      0
+1 -0.330386 -1.634600 -1.506628 -3.085273 -2.320646      0
+2  0.315517 -0.003227  0.043832  0.038220  0.131724      0
+3  0.315517 -0.003227  0.043832  0.038220  0.131724      0
+4 -0.330386 -1.634600 -1.506628 -3.085273 -2.320646      0
+5  0.347544  0.053860  0.032706  0.551246  0.438215      0
+6  0.315517 -0.003227  0.043832  0.038220  0.131724      0
+7 -0.330386 -1.634600 -1.506628 -3.085273 -2.320646      0
+8 -4.592087  0.036553 -1.921428  4.755088 -7.290843      1
+9  0.387036  0.262546  0.212380  0.904987  0.651866      0
+VIF results
+        VIF variable
+0  1.269217    const
+1  6.292200       X1
+2  2.247971       X2
+3  1.401633       X3
+4  1.039983       X4
+5  1.012148       X5
+6  7.993934    Label
 
 ############## BGL traditional methods ######################
 Decision Tree
@@ -323,3 +348,200 @@ Test validation:
 Precision: 0.929, recall: 0.942, F1-measure: 0.935, roc-auc: 0.937
 
 average:  0.9358908780903666 0.9304347826086955 0.9331429175922986 0.935487661574618
+
+#################### Logistic Regression Results with HDFS and 1000 iterations #####################
+(venv) C:\Users\panth\Courses\LOG6309E\Assigment 2\log6309e_replication\models>python LR.py
+====== Model summary ======
+C:\Users\panth\Courses\LOG6309E\Assigment 2\venv\lib\site-packages\sklearn\linear_model\_logistic.py:460: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+Train validation:
+====== Evaluation summary ======
+Precision: 0.980, recall: 0.997, F1-measure: 0.988, roc: 0.998
+
+Test validation:
+====== Evaluation summary ======
+Precision: 0.999, recall: 0.996, F1-measure: 0.998, roc: 0.998
+
+====== Model summary ======
+C:\Users\panth\Courses\LOG6309E\Assigment 2\venv\lib\site-packages\sklearn\linear_model\_logistic.py:460: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+Train validation:
+====== Evaluation summary ======
+Precision: 0.980, recall: 0.997, F1-measure: 0.988, roc: 0.998
+
+Test validation:
+====== Evaluation summary ======
+Precision: 0.999, recall: 0.996, F1-measure: 0.998, roc: 0.998
+
+====== Model summary ======
+C:\Users\panth\Courses\LOG6309E\Assigment 2\venv\lib\site-packages\sklearn\linear_model\_logistic.py:460: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+Train validation:
+====== Evaluation summary ======
+Precision: 0.980, recall: 0.997, F1-measure: 0.988, roc: 0.998
+
+Test validation:
+====== Evaluation summary ======
+Precision: 0.999, recall: 0.996, F1-measure: 0.998, roc: 0.998
+
+====== Model summary ======
+C:\Users\panth\Courses\LOG6309E\Assigment 2\venv\lib\site-packages\sklearn\linear_model\_logistic.py:460: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+Train validation:
+====== Evaluation summary ======
+Precision: 0.980, recall: 0.997, F1-measure: 0.988, roc: 0.998
+
+Test validation:
+====== Evaluation summary ======
+Precision: 0.999, recall: 0.996, F1-measure: 0.998, roc: 0.998
+
+====== Model summary ======
+C:\Users\panth\Courses\LOG6309E\Assigment 2\venv\lib\site-packages\sklearn\linear_model\_logistic.py:460: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+Train validation:
+====== Evaluation summary ======
+Precision: 0.980, recall: 0.997, F1-measure: 0.988, roc: 0.998
+
+Test validation:
+====== Evaluation summary ======
+Precision: 0.999, recall: 0.996, F1-measure: 0.998, roc: 0.998
+
+average:  0.9991915925626514 0.9959709911361806 0.9975786924939467 0.9979766091015863
+
+####################### Logistic Regression results with BGL and 1000 iterations ##################
+(venv) C:\Users\panth\Courses\LOG6309E\Assigment 2\log6309e_replication\models>python LR.py
+====== Model summary ======
+C:\Users\panth\Courses\LOG6309E\Assigment 2\venv\lib\site-packages\sklearn\linear_model\_logistic.py:460: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+Train validation:
+====== Evaluation summary ======
+Precision: 0.900, recall: 0.888, F1-measure: 0.894, roc: 0.889
+
+Test validation:
+====== Evaluation summary ======
+Precision: 0.899, recall: 0.899, F1-measure: 0.899, roc: 0.887
+
+====== Model summary ======
+C:\Users\panth\Courses\LOG6309E\Assigment 2\venv\lib\site-packages\sklearn\linear_model\_logistic.py:460: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+Train validation:
+====== Evaluation summary ======
+Precision: 0.900, recall: 0.888, F1-measure: 0.894, roc: 0.889
+
+Test validation:
+====== Evaluation summary ======
+Precision: 0.899, recall: 0.899, F1-measure: 0.899, roc: 0.887
+
+====== Model summary ======
+C:\Users\panth\Courses\LOG6309E\Assigment 2\venv\lib\site-packages\sklearn\linear_model\_logistic.py:460: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+Train validation:
+====== Evaluation summary ======
+Precision: 0.900, recall: 0.888, F1-measure: 0.894, roc: 0.889
+
+Test validation:
+====== Evaluation summary ======
+Precision: 0.899, recall: 0.899, F1-measure: 0.899, roc: 0.887
+
+====== Model summary ======
+C:\Users\panth\Courses\LOG6309E\Assigment 2\venv\lib\site-packages\sklearn\linear_model\_logistic.py:460: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+Train validation:
+====== Evaluation summary ======
+Precision: 0.900, recall: 0.888, F1-measure: 0.894, roc: 0.889
+
+Test validation:
+====== Evaluation summary ======
+Precision: 0.899, recall: 0.899, F1-measure: 0.899, roc: 0.887
+
+====== Model summary ======
+C:\Users\panth\Courses\LOG6309E\Assigment 2\venv\lib\site-packages\sklearn\linear_model\_logistic.py:460: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+Train validation:
+====== Evaluation summary ======
+Precision: 0.900, recall: 0.888, F1-measure: 0.894, roc: 0.889
+
+Test validation:
+====== Evaluation summary ======
+Precision: 0.899, recall: 0.899, F1-measure: 0.899, roc: 0.887
+
+average:  0.8987341772151899 0.8987341772151899 0.8987341772151899 0.8868670886075949
+
+############################ PLS Analysis on HDFS data #######################
+(venv) C:\Users\panth\Courses\LOG6309E\Assigment 2\log6309e_replication\demo>python PLS_demo.py
+Best R2, Best number of components:
+0.8797068963777086 5
+R2 score on test set:
+0.9324085429587613
+
+====== Model summary ======
+Train validation:
+====== Evaluation summary ======
+Precision: 0.998, recall: 1.000, F1-measure: 0.999, AUC: 1.000
+
+Test validation:
+====== Evaluation summary ======
+Precision: 0.935, recall: 1.000, F1-measure: 0.967, AUC: 1.000
+
+[0.99355878 0.99477352 0.99833333 1.         0.99583333 0.99748322
+ 0.9959217  0.99671593 1.         0.993361  ]

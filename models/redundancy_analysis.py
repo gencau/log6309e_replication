@@ -15,18 +15,18 @@ y_test = dataset["y_test"]
 print(x_train.shape)
 
 df =  pd.DataFrame(x_train)
-df.columns = ['X1','X2','X3','X4']
+df.columns = ['X1','X2','X3']
 df['Label'] = y_train
 
-df_test = pd.DataFrame(x_test)
-df_test.columns = ['X1','X2','X3','X4']
-df_test['Label'] = y_test
+#df_test = pd.DataFrame(x_test)
+#df_test.columns = ['X1','X2','X3','X4','X5']
+#df_test['Label'] = y_test
 
-df.merge(df_test)
+#df.merge(df_test)
 print(df.head(10))
 
 #find VIF using 'Label' as response variable 
-y, X = dmatrices('Label ~ X1+X2+X3+X4', data=df, return_type='dataframe')
+y, X = dmatrices('Label ~ X1+X2+X3', data=df, return_type='dataframe')
 X = add_constant(df)
 
 #calculate VIF for each explanatory variable
