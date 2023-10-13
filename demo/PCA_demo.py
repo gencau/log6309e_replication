@@ -26,7 +26,7 @@ if __name__ == '__main__':
     #x_test = feature_extractor.transform(x_test)
     
     # Ask for components that make up 99% of the variance of the model
-    model = PCA_.PCA(n_components=0.99)
+    model = PCA_.PCA(n_components=0.95)
     model.fit(x_train)
     print(model.n_components)
 
@@ -46,10 +46,10 @@ if __name__ == '__main__':
     model.fit(X_train, y_train)
 
     print('Train validation:')
-    precision, recall, f1= model.evaluate(X_train, y_train)
+    precision, recall, f1, roc = model.evaluate(X_train, y_train)
 
     print('Test validation:')
-    precision, recall, f1= model.evaluate(X_test, y_test)
+    precision, recall, f1, roc= model.evaluate(X_test, y_test)
 
     np.savez("../logrep/hdfs-PCA.npz", x_train=X_train,
          y_train=y_train, x_test=X_test, y_test=y_test)
