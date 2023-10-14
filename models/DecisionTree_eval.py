@@ -17,7 +17,7 @@ def metrics(y_pred, y_true):
 
 
 
-seq_level_data = np.load('../logrep/MCV_bglPP-sequential.npz.npz', allow_pickle=True)
+seq_level_data = np.load('../logrep/MCV_hdfsPP-sequential.npz.npz', allow_pickle=True)
 
 x_train = seq_level_data["x_train"]
 y_train = seq_level_data["y_train"]
@@ -98,6 +98,9 @@ for i in range(5):
     if (i == 4): # only print this once
         feat_importance = model.classifier.tree_.compute_feature_importances(normalize=False)
         print("feat importance = " + str(feat_importance))
+
+        for i,v in enumerate(feat_importance):
+            print('Feature: %0d, Score: %.5f' % (i,v))
         tree.export_graphviz(model.classifier, out_file="tree.dot") 
 
         # Plot them
