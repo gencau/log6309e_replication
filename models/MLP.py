@@ -1,5 +1,5 @@
 # Multi-layer perception for log anomaly detection
-from sklearn.metrics import precision_recall_fscore_support
+from sklearn.metrics import precision_recall_fscore_support, roc_auc_score, r2_score
 from torch.autograd import Variable
 import matplotlib.pyplot as plt
 import torch.nn.functional as F
@@ -69,7 +69,8 @@ class MLP_wrapper():
         new_y_train_s = new_y_train[index]
         batch_size = self.y_train.shape[0]
 
-        y_train_tensor = torch.from_numpy(new_y_train_s).type(torch.LongTensor)
+        self.y_train_tensor = torch.from_numpy(
+            new_y_train_s).type(torch.LongTensor)
         self.y_train_onehot = torch.from_numpy(
             new_y_train_s).type(torch.LongTensor)
         self.x_train_tensor = torch.from_numpy(new_x_train_s).float()
@@ -81,13 +82,13 @@ class MLP_wrapper():
 
     def fit(self):
         print("Training model "+self.name+" ...")
-        net = Net(self.fea_dim, 200, 2)
-        print(net)
-        optimizer = torch.optim.Adam(net.parameters(), lr=0.01)
+        self.net = Net(self.fea_dim, 200, 2)
+        print(self.net)
+        optimizer = torch.optim.Adam(self.net.parameters(), lr=0.01)
         loss_func = torch.nn.CrossEntropyLoss()
         counter = 0
         for t in range(self.n):
-            out = net(self.x_train_tensor)
+            out = self.net(self.x_train_tensor)
             loss = loss_func(out, self.y_train_onehot)
 
             optimizer.zero_grad()
@@ -97,42 +98,84 @@ class MLP_wrapper():
                 counter += 1
                 print('model %s itr: %d (%d), loss: %f' %
                       (self.name, t, percentage(t, self.n), loss))
-                out_ = net(self.x_test_tensor)
+                out_ = self.net(self.x_test_tensor)
                 y_ = torch.argmax(out_, -1)
                 self.acc = (y_ == torch.from_numpy(
                     self.y_test)).sum()/y_.shape[0]
                 self.precision, self.recall, self.f1, _ = precision_recall_fscore_support(
                     self.y_test, y_, average='binary')
+
+                self.auc = roc_auc_score(self.y_test, y_)
                 print('Testset: Precision: {:.3f}, recall: {:.3f}, F1-measure: {:.3f}, acc:{:.3f}\n'.format(
                     self.precision, self.recall, self.f1, self.acc))
 
+    def r2score(self, n_split=10):
+        r2_scores = []
+        split_size = len(self.x_train)//n_split
+        for i in range(n_split):
+            # Define the start and end indices for the current split
+            start_idx = i * split_size
+            end_idx = (i + 1) * split_size if i < n_split - \
+                1 else len(self.x_train)
+
+            # Split the data
+            x_split = self.x_train_tensor[start_idx:end_idx]
+            y_split = self.y_train_onehot[start_idx:end_idx]
+
+            # Make predictions on the current split
+            y_pred = self.net(x_split)
+
+            y_1 = torch.argmax(y_pred, -1)
+            # Calculate the R2 score for the current split
+            r2 = r2_score(y_split, y_1)
+
+            # Append the R2 score to the list
+            r2_scores.append(r2)
+        return(r2_scores)
+
     def get_metrics(self):
-        return [self.precision, self.recall, self.f1, self.acc]
+        return [self.precision, self.recall, self.f1, self.acc, self.auc]
 
 
 # model = MLP_wrapper("m1")
 # model.load_data("../logrep/MCV_bglPP-sequential.npz.npz")
 # model.train()
+# MCV_hdfsPP.npz
+#data = "../logrep/MCV_bglPP-sequential.npz.npz"
 
-data = "../logrep/MCV_bglPP-sequential.npz.npz"
-prec_l = []
-recall_l = []
-f1_l = []
-for i in range(10):
-    model = MLP_wrapper("m"+str(i))
-    model.load_data(data)
-    model.fit()
+def run_on(data):
 
-    precision, recall, f1, acc = model.get_metrics()
-    prec_l.append(precision)
-    recall_l.append(recall)
-    f1_l.append(f1)
+    prec_l = []
+    recall_l = []
+    f1_l = []
+    auc_l = []
+    r2 = []
+    for i in range(1):
+        model = MLP_wrapper(data+" m"+str(i))
+        model.load_data(data)
+        model.fit()
+        r2.append(model.r2score())
+
+        precision, recall, f1, acc, auc = model.get_metrics()
+        prec_l.append(precision)
+        recall_l.append(recall)
+        f1_l.append(f1)
+        auc_l.append(auc)
+
+    for i, x in enumerate(r2):
+        r2[i] = sum(x)/len(x)
+
+    r2 = sum(r2)/len(r2)
+
+    result_string = f'---------------------------------------\nRUN\nDATA: {data}\n---------------------------------------\nAverage Precision: {sum(prec_l) / len(prec_l)}\nAverage Recall: {sum(recall_l)/len(recall_l)}\nAverage F1: {sum(f1_l) / len(f1_l)}\nAverage AUC: {sum(auc_l) / len(auc_l)} \nAverage R2: {r2}\n---------------------------------------\n\n'
+
+    # Save the result in a file
+    with open('./result_MLP.txt', 'a') as file:
+        file.write(result_string)
+
+    print(result_string)
 
 
-result_string = f'---------------------------------------\nRUN\nDATA: {data}\n---------------------------------------\nAverage Precision: {sum(prec_l) / len(prec_l)}\nAverage Recall: {sum(recall_l)/len(recall_l)}\nAverage F1: {sum(f1_l) / len(f1_l)}'
+run_on("../logrep/MCV_hdfsPP.npz.npz")
 
-# Save the result in a file
-with open('./result_MLP.txt', 'w') as file:
-    file.write(result_string)
-
-print(result_string)
+# run_on("../logrep/MCV_bglPP-sequential.npz.npz")
