@@ -150,7 +150,7 @@ def run_on(data):
     f1_l = []
     auc_l = []
     r2 = []
-    for i in range(1):
+    for i in range(5):
         model = MLP_wrapper(data+" m"+str(i))
         model.load_data(data)
         model.fit()
@@ -176,6 +176,10 @@ def run_on(data):
     print(result_string)
 
 
-run_on("../logrep/MCV_hdfsPP.npz.npz")
+# run_on("../logrep/MCV_hdfsPP.npz.npz")
 
 # run_on("../logrep/MCV_bglPP-sequential.npz.npz")
+
+# run_on("../logrep/MCV_hdfsPP-random.npz.npz")
+
+run_on("../logrep/bgl-PCA.npz")
