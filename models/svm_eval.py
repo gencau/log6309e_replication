@@ -12,10 +12,31 @@ def metrics(y_pred, y_true):
     roc_score = roc_auc_score(y_true, y_pred)
     return precision, recall, f1, roc_score
 
+
+
+seq_level_data = np.load('../logrep/hdfs-PCA.npz', allow_pickle=True)
+
+x_train = seq_level_data["x_train"]
+y_train = seq_level_data["y_train"]
+x_test = seq_level_data["x_test"]
+y_test = seq_level_data["y_test"]
+
+"""
+The implementation of the SVM model for anomaly detection.
+
+Authors: 
+    LogPAI Team
+
+Reference: 
+    [1] Yinglung Liang, Yanyong Zhang, Hui Xiong, Ramendra Sahoo. Failure Prediction 
+        in IBM BlueGene/L Event Logs. IEEE International Conference on Data Mining
+        (ICDM), 2007.
+
+"""
 class SVM(object):
 
     def __init__(self, penalty='l1', tol=0.1, C=1, dual=False, class_weight=None, 
-                 max_iter=100):
+                 max_iter=1000):
         """ The Invariants Mining model for anomaly detection
         Arguments
         ---------
@@ -59,3 +80,12 @@ class SVM(object):
         precision, recall, f1, roc = metrics(y_pred, y_true)
         print('Precision: {:.3f}, recall: {:.3f}, F1-measure: {:.3f}, roc: {:.3f}\n'.format(precision, recall, f1, roc))
         return precision, recall, f1, roc
+
+model = SVM()
+model.fit(x_train, y_train)
+
+print('Train validation:')
+precision, recall, f1, roc = model.evaluate(x_train, y_train)
+
+print('Test validation:')
+precision, recall, f1, roc = model.evaluate(x_test, y_test)

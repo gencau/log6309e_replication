@@ -6,7 +6,7 @@ sys.path.append('../')
 from models import PCA as PCA_
 from sklearn.decomposition import PCA
 from logrep import preprocessing
-from models import DecisionTree
+from models import SVM
 import pandas as pd
 import numpy as np
 
@@ -42,7 +42,7 @@ if __name__ == '__main__':
     print(model.components_)
     print(model.n_components_)
 
-    model = DecisionTree.DecisionTree()
+    model = SVM.SVM()
     model.fit(X_train, y_train)
 
     print('Train validation:')
