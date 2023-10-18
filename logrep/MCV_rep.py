@@ -9,7 +9,7 @@ from dataloader import load_HDFS
 
 
 data_dir = "./"
-log_name = "bglPP-sequential.npz"
+log_name = "hdfsPP-sequential.npz"
 dataset = np.load(data_dir+log_name, allow_pickle=True)
 x_train = dataset["x_train"][()]
 y_train = dataset["y_train"]
@@ -88,10 +88,17 @@ x_test_evt_seq = np.array(x_test_evt_seq, dtype=object)
 x_train_transformed = transform_train_data(x_train_evt_seq)
 x_train = x_train_transformed[0]
 
+print (x_train)
+
 events = x_train_transformed[1]
+
+print(events)
 
 x_test = transform_test_data(x_test_evt_seq, events)
 
+print(x_test)
+
+# Also save events, they are the feature names
 save_path = os.path.join(data_dir, 'MCV_'+log_name+'.npz')
 np.savez(save_path, x_train=x_train, y_train=y_train,
-         x_test=x_test, y_test=y_test)
+         x_test=x_test, y_test=y_test, feature_names=events)

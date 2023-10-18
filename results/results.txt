@@ -249,6 +249,29 @@ Test validation:
 ====== Evaluation summary ======
 Precision: 1.000, recall: 0.999, F1-measure: 0.999, AUC: 0.999
 
+
+###################### VIF Redundancy Analysis, after PCA with 3 components ###############
+(venv) C:\Users\panth\Courses\LOG6309E\Assigment 2\log6309e_replication\models>python redundancy_analysis.py
+(402542, 3)
+         X1        X2        X3  Label
+0  0.395735 -1.186318 -0.239541      0
+1 -1.652417  0.969568  3.522488      0
+2 -1.271976  0.393719 -0.576333      0
+3 -1.271976  0.393719 -0.576333      0
+4 -1.652417  0.969568  3.522488      0
+5  3.161102  0.053578 -0.110133      0
+6 -1.271976  0.393719 -0.576333      0
+7 -1.652417  0.969568  3.522488      0
+8 -1.165978  0.318527 -1.463960      1
+9  0.431317 -1.447768 -0.294125      0
+VIF results
+        VIF variable
+0  1.034649    const
+1  1.000505       X1
+2  1.001412       X2
+3  1.026926       X3
+4  1.028843    Label
+
 ###################### VIF Redundancy Analysis, after PCA with 4 components ###############
 Source: https://www.statology.org/how-to-calculate-vif-in-python/
 About add_constant: https://stackoverflow.com/questions/42658379/variance-inflation-factor-in-python

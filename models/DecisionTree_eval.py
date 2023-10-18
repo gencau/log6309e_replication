@@ -23,6 +23,7 @@ x_train = seq_level_data["x_train"]
 y_train = seq_level_data["y_train"]
 x_test = seq_level_data["x_test"]
 y_test = seq_level_data["y_test"]
+feature_names = seq_level_data["feature_names"]
 
 ##############################
 #        Decision Tree
@@ -82,6 +83,7 @@ f1_l = []
 roc_l = []
 for i in range(5):
     model = DecisionTree()
+    model.classifier.feature_names_in_ = feature_names
     model.fit(x_train, y_train)
 
     print('Train validation:')
@@ -100,14 +102,15 @@ for i in range(5):
         print("feat importance = " + str(feat_importance))
 
         for i,v in enumerate(feat_importance):
-            print('Feature: %0d, Score: %.5f' % (i,v))
-        tree.export_graphviz(model.classifier, out_file="tree.dot") 
-
+            print('Feature: %s, Score: %.5f' % (feature_names[i],v))
+        tree.export_graphviz(model.classifier, out_file="tree.dot", feature_names=feature_names) 
+        
         # Plot them
-        plt.bar(range(x_train.shape[1]), feat_importance)
-        plt.xlabel('Features')
-        plt.ylabel('Importance')
-        plt.savefig('feature_importance_hdfs.png', bbox_inches='tight')
+        plt.barh(range(x_train.shape[1]), feat_importance, tick_label=feature_names)
+        plt.ylabel('Features')
+        plt.xlabel('Importance')
+        plt.tick_params(axis='y', labelsize=5)
+        plt.savefig('feature_importance_hdfs.png')
 
 
 print('average: ', sum(prec_l) / len(prec_l), sum(recall_l) / len(recall_l), sum(f1_l) / len(f1_l), sum(roc_l) / len(roc_l))
